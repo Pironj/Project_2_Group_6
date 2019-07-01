@@ -67,14 +67,17 @@ module.exports = function(app) {
   app.get("/api/tweets", function(req, res) {
     console.log("======== CURRENT STATE OF THE SESSION ==========");
     console.log(req.session);
-    db.Tweet.findAll({ where: { UserId: req.session.userid }}).then(function(dbTweets) {
+    db.Tweet.findAll({ where: { UserId: req.session.userid } }).then(function(
+      dbTweets
+    ) {
       res.json(dbTweets);
     });
   });
 
   // Create a new example -- authored by a specific logged-in user
   app.post("/api/tweets", function(req, res) {
-    if(!req.session.token) { //if you aren't logged in, you can't post things :)
+    if (!req.session.token) {
+      //if you aren't logged in, you can't post things :)
       return res.sendStatus(403);
     }
 

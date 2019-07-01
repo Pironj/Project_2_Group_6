@@ -24,8 +24,7 @@
 //     });
 //   });
 // };
-
-
+var Twit = require("twit");
 
 var trendTopics = [];
 var trendTopicsList = [];
@@ -38,8 +37,8 @@ var handle = [];
 var id_strings = [];
 var urls = [];
 var flag = true;
-const numOfTrending = 1;
-const numOfTweets = 1;
+var numOfTrending = 1;
+var numOfTweets = 1;
 var test = "";
 var test1 = "";
 var html = "";
@@ -54,7 +53,7 @@ var T = new Twit({
 
 // This function will query Twitter and return 50 trending topics (just the name of those topics)
 function trendSearch() {
-  T.get('trends/place', { id: '2490383' }, function (err, data, response) {
+  T.get('/trending', { id: '2490383' }, function (err, data, response) {
     for (let i = 0; i < data[0].trends.length; i++) {
       trendTopics.push(data[0].trends[i].name);
     }
@@ -72,8 +71,11 @@ function topicSearch(topic) {
     for (let i = 0; i < numOfTweets; i++) {
       id_strings[i] = data.statuses[i].id_str
     }
-    console.log(id_strings)
-  })
+    // console.log(id_strings)
+    var hbsObject = { tweet: id_strings }
+    console.log(hbsObject);
+    res.render("trending", hbsObject);
+  });
 }
 
 // This function will input a handle and output the Tweet ID associated with x number of tweets from this user

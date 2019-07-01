@@ -6,14 +6,15 @@ module.exports = function (app) {
     console.log("==== CURRENT STATE OF THE SESSION =====");
     console.log(req.session);
     if (req.session.token) {
+      res.render("index");
       // User is authenticated on google, load app
-      db.Tweet.findAll({ where: { UserId: req.session.passport.user.id } }).then(function (dbExamples) {
-        res.cookie('token', req.session.token); // Send session token back to client
-        res.render("index", {
-          msg: "Welcome!",
-          tweets: dbExamples
-        });
-      });
+      // db.Tweet.findAll({ where: { UserId: req.session.passport.user.id } }).then(function (dbExamples) {
+      //   res.cookie('token', req.session.token); // Send session token back to client
+      //   res.render("index", {
+      //     msg: "Welcome!",
+      //     tweets: dbExamples
+      //   });
+      // });
     } else {
       // User is not authenticated, render login page
       res.cookie('token', '');
@@ -27,6 +28,10 @@ module.exports = function (app) {
     req.logout(); // Call passport logout method
     req.session = null; // Remove session
     res.redirect('/'); // Redirect to index route which will show them login template
+  });
+
+  app.get('/trending', (req, res) => {
+    res.render("trending");
   });
 
   // Load example page and pass in an example by id
