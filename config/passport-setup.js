@@ -1,6 +1,6 @@
 var GoogleStrategy = require("passport-google-oauth").OAuth2Strategy;
 var db = require("../models");
-var keys = require("./keys_google");
+// var keys = require("./keys_google");
 
 // Use the GoogleStrategy within Passport.
 //   Strategies in Passport require a `verify` function, which accept
@@ -17,8 +17,8 @@ module.exports = function (passport) {
   passport.use(
     new GoogleStrategy(
       {
-        clientID: keys.google.clientID,
-        clientSecret: keys.google.clientSecret,
+        clientID: GOOGLE_ID,
+        clientSecret: GOOGLE_SECRET,
         callbackURL: "/auth/google/callback" // Needs to be changed with final hosted url for production
       },
       function (accessToken, refreshToken, profile, done) {
