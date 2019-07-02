@@ -18,7 +18,7 @@ module.exports = function (passport) {
   passport.use(
     new GoogleStrategy(
       {
-        clientID: process.env.GOOGLE_ID,
+        clientId: process.env.GOOGLE_ID,
         clientSecret: process.env.GOOGLE_SECRET,
         callbackURL: "/auth/google/callback" // Needs to be changed with final hosted url for production
       },
